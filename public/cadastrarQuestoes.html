@@ -49,20 +49,20 @@
   </div>
 
   <script>
-    // document.addEventListener("DOMContentLoaded", () => {
-    //   // Carregar disciplinas do backend
-    //   fetch("/api/disciplinas")
-    //     .then(res => res.json())
-    //     .then(disciplinas => {
-    //       const select = document.getElementById("disciplina");
-    //       disciplinas.forEach(d => {
-    //         const opt = document.createElement("option");
-    //         opt.value = d.id;
-    //         opt.textContent = d.nome;
-    //         select.appendChild(opt);
-    //       });
-    //     })
-        // .catch(err => console.error("Erro ao carregar disciplinas:", err));
+    document.addEventListener("DOMContentLoaded", () => {
+      // Carregar disciplinas do backend
+      fetch("/api/disciplinas")
+        .then(res => res.json())
+        .then(disciplinas => {
+          const select = document.getElementById("disciplina");
+          disciplinas.forEach(d => {
+            const opt = document.createElement("option");
+            opt.value = d.id;
+            opt.textContent = d.nome;
+            select.appendChild(opt);
+          });
+        })
+        .catch(err => console.error("Erro ao carregar disciplinas:", err));
 
       // cor verde no input
       const radios = document.querySelectorAll('input[name="resposta_correta"]');
@@ -74,48 +74,48 @@
         });
       });
 
-      // // Enviar questão para o backend
-      // document.getElementById("questao-form").addEventListener("submit", e => {
-      //   e.preventDefault();
+      // Enviar questão para o backend
+      document.getElementById("questao-form").addEventListener("submit", e => {
+        e.preventDefault();
 
-      //   const respostas = Array.from(document.querySelectorAll('input[name="resposta[]"]')).map(i => i.value.trim());
-      //   const correta = document.querySelector('input[name="resposta_correta"]:checked')?.value;
-      //   const pergunta = document.getElementById("pergunta").value.trim();
-      //   const disciplinaId = document.getElementById("disciplina").value;
-      //   const dificuldade = document.querySelector('input[name="dificuldade"]:checked')?.value;
+        const respostas = Array.from(document.querySelectorAll('input[name="resposta[]"]')).map(i => i.value.trim());
+        const correta = document.querySelector('input[name="resposta_correta"]:checked')?.value;
+        const pergunta = document.getElementById("pergunta").value.trim();
+        const disciplinaId = document.getElementById("disciplina").value;
+        const dificuldade = document.querySelector('input[name="dificuldade"]:checked')?.value;
 
-      //   if (!pergunta || !disciplinaId || !dificuldade || correta === undefined || respostas.some(r => r === "")) {
-      //     alert("Preencha todos os campos corretamente.");
-      //     return;
-      //   }
+        if (!pergunta || !disciplinaId || !dificuldade || correta === undefined || respostas.some(r => r === "")) {
+          alert("Preencha todos os campos corretamente.");
+          return;
+        }
 
-      //   fetch("/api/questoes", {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     body: JSON.stringify({
-      //       pergunta,
-      //       disciplinaId,
-      //       dificuldade: parseInt(dificuldade),
-      //       respostas,
-      //       respostaCorreta: parseInt(correta)
-      //     })
-      //   })
-      //   .then(res => {
-      //     if (!res.ok) throw new Error("Erro ao cadastrar");
-      //     return res.json();
-      //   })
-      //   .then(() => {
-      //     alert("Questão cadastrada com sucesso!");
-      //     document.getElementById("questao-form").reset();
-      //     document.querySelectorAll('input[name="resposta[]"]').forEach(input => input.style.backgroundColor = "white");
-      //   })
-      //   .catch(err => {
-      //     console.error(err);
-      //     alert("Erro ao cadastrar a questão.");
-      //   });
-      // });
-    // }
-    // );
+        fetch("/api/questoes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            pergunta,
+            disciplinaId,
+            dificuldade: parseInt(dificuldade),
+            respostas,
+            respostaCorreta: parseInt(correta)
+          })
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Erro ao cadastrar");
+          return res.json();
+        })
+        .then(() => {
+          alert("Questão cadastrada com sucesso!");
+          document.getElementById("questao-form").reset();
+          document.querySelectorAll('input[name="resposta[]"]').forEach(input => input.style.backgroundColor = "white");
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Erro ao cadastrar a questão.");
+        });
+      });
+    }
+    );
   </script>
 </body>
 </html>

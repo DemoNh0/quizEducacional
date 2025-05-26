@@ -44,7 +44,7 @@
     /*
 
 
-        NÃO SEI SE FUNCION, PRECISO DO BACKEND PRA TESTAR, PRÓXIMA AULA EU 
+        NÃO SEI SE FUNCIONA, PRECISO DO BACKEND PRA TESTAR, PRÓXIMA AULA EU 
         PERGUNTO SOBRE O BACK E TESTO DNV, SE NÃO FUNCIONAR EU N JA NÃO SEI 
         O QUE FAÇO, A MINHA VIDA É UMA LUTA SEM FIM, ME SINTO NO ESPAÇO AWKJDWADNO
 
@@ -110,32 +110,12 @@
 
             document.getElementById("courses-container").appendChild(courseDiv);
 
-            const cursoNome = courseName.textContent;
-            const cursoDesc = courseDesc.textContent;
+            
+            document.addEventListener("DOMContentLoaded", carregarCursos);
 
-            try {
-                const response = await fetch('/api/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ cursoNome, cursoDesc })
-                });
-
-                const data = await response.json();
-
-                if (data.existe) {
-                    console.log('O curso já existe!');
-                }
-                else {
-                    console.log('Curso Criado com sucesso!')
-                }
+            async function cadastrarCurso() {
+                
             }
-            catch (error) {
-                console.error('Erro ao criar o curso: ', error)
-                alert('Erro ao criar o curso')
-            }
-
             
         }
 
@@ -189,7 +169,7 @@
             const disciplinaNome = disciplineName;
 
             try {
-                const response = await fetch('/api/', {
+                const response = await fetch('/api/curso', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

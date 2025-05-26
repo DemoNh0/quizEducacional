@@ -321,6 +321,7 @@ input[type="radio"]{
 
 .inicio p {
   text-align: center;
+  padding: 5px;
 }
 
 .ini-container {
