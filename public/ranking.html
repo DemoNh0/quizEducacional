@@ -1,77 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Ranking dos Jogadores</title>
+    <link rel="stylesheet" href="css/rank.css">
 </head>
-
 <body>
     <div class="navbar">
         <div class="quiz-menu">
-            <span>Quiz ▾</span>
-            <div class="menu-dropdown">
-                <a href="./quiz/juridico">Serviços Jurídicos</a>
-                <a href="./quiz/desenvolvimento-sistemas">Desenvolvimento de Sistemas</a>
-                <a href="./quiz/eletronica">Eletrônica</a>
-                <a href="./quiz/administracao">Administração</a>
-            </div>
-        </div>
-        <div class="links">
-            <a href="index.html">Início</a>
-        </div>
-        <div class="user-info">
-            <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M6 20c0-3.333 2.667-6 6-6s6 2.667 6 6" />
-            </svg>
-            <div class="user-dropdown">
-                <a href="./login.html" id="user-status">Login</a>
-                <a href="./index.html" id="user-details">Convidado</a>
-            </div>
+            <span>Menu</span>
         </div>
     </div>
+
     <div class="container">
-        <div>
-            <table id="tabela-ranking">
-                <thead>
-                    <tr>
-                        <th>Jogador</th>
-                        <th>Pontuação</th>
-                        <th>Rank</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <!-- Os dados serão inseridos aqui dinamicamente -->
-                </tbody>
-            </table>
-        </div>
+        <h1>Ranking dos Jogadores</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Jogador</th>
+                    <th>Pontuação</th>
+                    <th>Rank</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Placeholder rows -->
+                <tr>
+                    <td>Jogador 1</td>
+                    <td>100</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Jogador 2</td>
+                    <td>90</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Jogador 3</td>
+                    <td>80</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>Jogador 4</td>
+                    <td>70</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td>Jogador 5</td>
+                    <td>60</td>
+<td>5</td>
+                </tr>
+                <tr>
+                    <td>Jogador 6</td>
+                    <td>50</td>
+                    <td>6</td>  
+                </tr>
+                <tr>
+                    <td>Jogador 7</td>
+                    <td>40</td>
+                    <td>7</td>
+                </tr>
+                <tr>
+                    <td>Jogador 8</td>
+                    <td>30</td>
+                    <td>8</td>
+                </tr>
+                <tr>
+                    <td>Jogador 9</td>
+                    <td>20</td>
+                    <td>9</td>
+                </tr>
+                <tr>
+                    <td>Jogador 10</td>
+                    <td>10</td>
+                    <td>10</td>
+                </tr>
+            </tbody>
         </table>
+<br>
+        <a href="inicio.html" class="btn">Voltar ao Início</a>
+
     </div>
 </body>
-
-<script>
-
-    fetch('/api/ranking')
-        .then(response => response.json())
-        .then(data => {
-            const tableBody = document.querySelector('#tabela-ranking tbody');
-
-            data.forEach((item, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${index + 1}</td> <!-- Posição no ranking -->
-                    <td>${item.jogador}</td>  <!-- Nome do jogador -->
-                    <td>${item.pontuacao}</td> <!-- Pontuação do jogador -->
-                `;
-                tableBody.appendChild(row);
-            });
-        })
-        .catch(error => console.error('Erro ao carregar ranking: ', error));
-        
-
-</script>
-
 </html>

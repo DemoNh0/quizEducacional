@@ -100,6 +100,21 @@ END //
 
 DELIMITER ;
 
+DELIMITER //
+
+CREATE PROCEDURE buscar_usuario_por_id(
+    IN p_id INT
+)
+BEGIN
+    SELECT * 
+    FROM USUARIO 
+    WHERE ID = p_id
+    LIMIT 1;
+END //
+
+DELIMITER ;
+
+
 
 
 CREATE TABLE IF NOT EXISTS CURSO(

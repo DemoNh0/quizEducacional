@@ -1,60 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
-    <link rel="stylesheet" href="./CSS/style.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    
 </head>
-
 <body>
-    <div class="navbar">
-        <div class="quiz-menu">
-            <span>Quiz ▾</span>
-            <div class="menu-dropdown">
-                <a href="./quiz/juridico">Serviços Jurídicos</a>
-                <a href="./quiz/desenvolvimento-sistemas">Desenvolvimento de Sistemas</a>
-                <a href="./quiz/eletronica">Eletrônica</a>
-                <a href="./quiz/administracao">Administração</a>
+    <header>
+        <div class="navbar">
+            <div class="quiz-menu">
+                <span>Quiz ▾</span>
+                <div class="menu-dropdown">
+                    <a href="./quiz/juridico">Serviços Jurídicos</a>
+                    <a href="./quiz/desenvolvimento-sistemas">Desenvolvimento de Sistemas</a>
+                    <a href="./quiz/eletronica">Eletrônica</a>
+                    <a href="./quiz/administracao">Administração</a>
+                </div>
+            </div>
+            <div class="user-info">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M6 20c0-3.333 2.667-6 6-6s6 2.667 6 6" />
+                </svg>
+                <div class="user-dropdown">
+                    <a href="./login.html" id="user-status">Login</a>
+                    <a href="./index.html" id="user-details">Convidado</a>
+                </div>
             </div>
         </div>
-        <div class="user-info">
-            <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M6 20c0-3.333 2.667-6 6-6s6 2.667 6 6" />
-            </svg>
-            <div class="user-dropdown">
-                <a href="./login.html" id="user-status">Login</a>
-                <a href="./index.html" id="user-details">Convidado</a>
+    </header>
+    
+    
+   
+    <main>
+        <div class="inicio">
+            <h1>Seja bem vindo ao Quiz educacional!</h1>
+            <div class="ini-container">
+                <h2>Vamos começar?</h2>
+                <p>Primeiro, faça seu <a href="registro.html">Cadastro</a> caso não tiver uma conta</p>
+                <p>Ou faça <a href="login.html">Login</a> se você já for cadastrado.</p>
+                
+                <br><br>
+
+                <h3>Sobre</h3>
+
+                <p class="desc">Esse é um Quiz Educacional feito por estudantes de Desenvolvimento de Sistemas 
+                    com o intuito de aprender, aperfeiçoar e colocar em prática os conhecimentos adquiridos 
+                    durante o curso.</p> 
+                    <br>
+                <p class="desc">O Quiz inclui um sistema de cadastro e login que guarda informações dos jogadores, 
+                    como nome, email e pontuação no Quiz para o ranking. </p>
             </div>
         </div>
-    </div>
+    </main>
 
-    <div class="links">
-        <a href="login.html" target="_blank">Login</a> <br>
-        <a href="registro.html" target="_blank">Registrar</a> <br>
-        <a href="cadastrarCurso.html" target="_blank">Cadastrar um curso</a> <br>
-        <a href="esqueciSenha.html" target="_blank">Esqueci minha senha</a> <br>
-        <a href="esqueci.html" target="_blank">Email do Esqueci minha senha</a> <br>
-         <a href="resetarSenha.html" target="_blank">Resetar sua senha! (com a sua senha atual.)</a> <br>
-
-    </div>
-
-    <h1>Quiz Educacional</h1>
-
-    <div class="container">
-        <h2>Selecione o seu curso:</h2>
-
-        <div class="links">
-            <a href="./cursos/adm.html">Administração</a> <br>
-            <a href="./cursos/ds.html">Desenvolvimento de Sistemas</a> <br>
-            <a href="./cursos/eletro.html">Eletrônica</a> <br>
-            <a href="./cursos/sj.html">Serviços Jurídicos</a> <br>
-        </div>
-    </div>
-
-
+    
 </body>
-
 </html>

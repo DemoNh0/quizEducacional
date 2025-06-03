@@ -109,37 +109,72 @@
                 disciplineList.classList.add("discipline-list");
                 courseDiv.appendChild(disciplineList);
 
-                addDisciplineButton.addEventListener("click", function () {
-                    addDiscipline(disciplineList, savedCourse.id);
-                });
-
-                removeCourseButton.addEventListener("click", function () {
-                    courseDiv.remove();
-                    // (Opcional) Enviar DELETE para o backend
-                });
-
-                editCourseButton.addEventListener("click", function () {
-                    const newCourseName = prompt("Digite o novo nome do curso:", courseTitle.textContent);
-                    if (newCourseName) {
-                        courseTitle.textContent = newCourseName;
-                        // (Opcional) Atualizar o backend com o novo nome
-                    }
-                    const newDesc = prompt("Digite a nova descrição:", courseTitleDesc.textContent);
-                    if (newDesc) {
-                        courseTitleDesc.textContent = newDesc;
-                        // (Opcional) Atualizar o backend com a nova descrição
-                    }
-                });
-
-                document.getElementById("courses-container").appendChild(courseDiv);
-
-                alert("Curso salvo com sucesso!");
-
             } catch (error) {
                 console.error("Erro ao salvar curso: ", error);
                 alert("Erro ao salvar curso.");
             }
         }
+                
+
+            addDisciplineButton.addEventListener("click", async function () {
+                addDiscipline(disciplineList, savedCourse.id);
+                const removeDisciplineButton = document.createElement("button");
+                removeDisciplineButton.textContent = "Remover Disciplina";
+                removeDisciplineButton.classList.add("btn");
+                disciplineDiv.appendChild(removeDisciplineButton);
+
+                editDisciplineButton.addEventListener("click", function () {
+                    const newDisciplineName = prompt("Digite o novo nome da disciplina:", disciplineTitle.textContent);
+                    if (newDisciplineName) {
+                        disciplineTitle.textContent = newDisciplineName;
+                    }
+                });
+
+                removeDisciplineButton.addEventListener("click", function () {
+                    disciplineDiv.remove();
+                });
+
+                disciplineList.appendChild(disciplineDiv);
+
+                const disciplinaNome = disciplineName;
+
+                try {
+                    const response = await fetch('/api/curso', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ disciplinaNome })
+                    });
+
+                    removeCourseButton.addEventListener("click", function () {
+                        courseDiv.remove();
+                        // (Opcional) Enviar DELETE para o backend
+                    });
+
+                    editCourseButton.addEventListener("click", function () {
+                        const newCourseName = prompt("Digite o novo nome do curso:", courseTitle.textContent);
+                        if (newCourseName) {
+                            courseTitle.textContent = newCourseName;
+                            // (Opcional) Atualizar o backend com o novo nome
+                        }
+                        const newDesc = prompt("Digite a nova descrição:", courseTitleDesc.textContent);
+                        if (newDesc) {
+                            courseTitleDesc.textContent = newDesc;
+                            // (Opcional) Atualizar o backend com a nova descrição
+                        }
+                    });
+
+                    document.getElementById("courses-container").appendChild(courseDiv);
+
+                    alert("Curso salvo com sucesso!");
+
+                } catch (error) {
+                    console.error("Erro ao salvar curso: ", error);
+                    alert("Erro ao salvar curso.");
+                }
+            });
+        
 
         // pegar cursos do backend e mostrar na tela
         document.addEventListener("DOMContentLoaded", carregarCursos);

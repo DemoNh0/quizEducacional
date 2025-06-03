@@ -63,8 +63,27 @@
           });
         })
         .catch(err => console.error("Erro ao carregar disciplinas:", err));
+      });
+        
 
-      // cor verde no input
+    //script ainda nao foi testado!!
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Carregar disciplinas do backend
+      fetch("/api/questao/:id_disciplina")
+        .then(res => res.json())
+        .then(disciplinas => {
+          const select = document.getElementById("disciplina");
+          disciplinas.forEach(d => {
+            const opt = document.createElement("option");
+            opt.value = d.id;
+            opt.textContent = d.nome;
+            select.appendChild(opt);
+          });
+        })
+        .catch(err => console.error("Erro ao carregar disciplinas:", err));
+
+      //cor verde no input
       const radios = document.querySelectorAll('input[name="resposta_correta"]');
       radios.forEach((radio, index) => {
         radio.addEventListener("change", () => {
@@ -89,7 +108,7 @@
           return;
         }
 
-        fetch("/api/questoes", {
+        fetch("/api/questao", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
