@@ -5,6 +5,7 @@ const path = require('path');
 const usuarioController = require('./controllers/usuarioController');
 const questaoController = require('./controllers/questaoController');
 const alternativaController = require('./controllers/alternativaController');
+const cursoController = require('./controllers/cursoController');
 
 const app = express();
 
@@ -12,6 +13,14 @@ const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
+
+// Rotas Curso
+app.post('/api/curso', cursoController.novoRegistro);
+
+app.put('/api/curso', cursoController.edicaoRegistro);
+
+app.delete('/api/curso', cursoController.excluirRegistro);
+
 
 // Rotas Usuario
 app.post('/api/usuario', usuarioController.cadastrarUsuario);

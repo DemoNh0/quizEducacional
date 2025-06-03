@@ -76,47 +76,45 @@
 
                 if (!response.ok) throw new Error("Erro ao salvar curso");
 
-                const savedCourse = await response.json(); // deve conter o ID do curso salvo
+                    const savedCourse = await response.json(); // deve conter o ID do curso salvo
 
-                const courseDiv = document.createElement("div");
-                courseDiv.classList.add("curso-item");
-                courseDiv.dataset.courseId = savedCourse.id; // salvar o ID pra usar depois se necessário
+                    const courseDiv = document.createElement("div");
+                    courseDiv.classList.add("curso-item");
+                    courseDiv.dataset.courseId = savedCourse.id; // salvar o ID pra usar depois se necessário
 
-                const courseTitle = document.createElement("h3");
-                courseTitle.textContent = savedCourse.nome;
-                courseDiv.appendChild(courseTitle);
+                    const courseTitle = document.createElement("h3");
+                    courseTitle.textContent = savedCourse.nome;
+                    courseDiv.appendChild(courseTitle);
 
-                const courseTitleDesc = document.createElement("h5");
-                courseTitleDesc.textContent = savedCourse.descricao;
-                courseDiv.appendChild(courseTitleDesc);
+                    const courseTitleDesc = document.createElement("h5");
+                    courseTitleDesc.textContent = savedCourse.descricao;
+                    courseDiv.appendChild(courseTitleDesc);
 
-                const addDisciplineButton = document.createElement("button");
-                addDisciplineButton.textContent = "Adicionar Disciplina";
-                addDisciplineButton.classList.add("btn-disciplina");
-                courseDiv.appendChild(addDisciplineButton);
+                    const addDisciplineButton = document.createElement("button");
+                    addDisciplineButton.textContent = "Adicionar Disciplina";
+                    addDisciplineButton.classList.add("btn-disciplina");
+                    courseDiv.appendChild(addDisciplineButton);
 
-                const removeCourseButton = document.createElement("button");
-                removeCourseButton.textContent = "Remover Curso";
-                removeCourseButton.classList.add("btn-remove");
-                courseDiv.appendChild(removeCourseButton);
+                    const removeCourseButton = document.createElement("button");
+                    removeCourseButton.textContent = "Remover Curso";
+                    removeCourseButton.classList.add("btn-remove");
+                    courseDiv.appendChild(removeCourseButton);
 
-                const editCourseButton = document.createElement("button");
-                editCourseButton.textContent = "Editar Curso";
-                editCourseButton.classList.add("btn-edit");
-                courseDiv.appendChild(editCourseButton);
+                    const editCourseButton = document.createElement("button");
+                    editCourseButton.textContent = "Editar Curso";
+                    editCourseButton.classList.add("btn-edit");
+                    courseDiv.appendChild(editCourseButton);
 
-                const disciplineList = document.createElement("div");
-                disciplineList.classList.add("discipline-list");
-                courseDiv.appendChild(disciplineList);
+                    const disciplineList = document.createElement("div");
+                    disciplineList.classList.add("discipline-list");
+                    courseDiv.appendChild(disciplineList);
 
             } catch (error) {
                 console.error("Erro ao salvar curso: ", error);
                 alert("Erro ao salvar curso.");
             }
-        }
-                
 
-            addDisciplineButton.addEventListener("click", async function () {
+        addDisciplineButton.addEventListener("click", async function () {
                 addDiscipline(disciplineList, savedCourse.id);
                 const removeDisciplineButton = document.createElement("button");
                 removeDisciplineButton.textContent = "Remover Disciplina";
@@ -149,19 +147,19 @@
 
                     removeCourseButton.addEventListener("click", function () {
                         courseDiv.remove();
-                        // (Opcional) Enviar DELETE para o backend
+                        // Enviar DELETE para o backend
                     });
 
                     editCourseButton.addEventListener("click", function () {
                         const newCourseName = prompt("Digite o novo nome do curso:", courseTitle.textContent);
                         if (newCourseName) {
                             courseTitle.textContent = newCourseName;
-                            // (Opcional) Atualizar o backend com o novo nome
+                            // Atualizar o backend com o novo nome
                         }
                         const newDesc = prompt("Digite a nova descrição:", courseTitleDesc.textContent);
                         if (newDesc) {
                             courseTitleDesc.textContent = newDesc;
-                            // (Opcional) Atualizar o backend com a nova descrição
+                            // Atualizar o backend com a nova descrição
                         }
                     });
 
@@ -174,6 +172,8 @@
                     alert("Erro ao salvar curso.");
                 }
             });
+
+        }
         
 
         // pegar cursos do backend e mostrar na tela
@@ -251,7 +251,7 @@
                 }
             }
 
-            // Função auxiliar para montar disciplina no DOM com botões igual seu padrão
+            // Função auxiliar para montar disciplina no DOM com botões
             function montarDisciplinaNaTela(disciplineList, disciplina) {
                 const disciplineDiv = document.createElement("div");
                 disciplineDiv.classList.add("discipline-item");
