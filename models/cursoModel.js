@@ -15,22 +15,20 @@ const cursoModel = {
 
     edicaoRegistro: async (id, nome, descricao) => {
         try {
-
             const sql = 'CALL editar_curso_por_id(?, ?, ?)';
 
             await db.query(sql, [id, nome, descricao]);
             
-            return true
+            return true;
 
         } catch (error) {
-            console.error('Erro ao editar curso ', error)
+            console.error('Erro ao editar curso ', error);
             throw error;
         }
     },
 
     excluirRegistro: async (id) => {
         try {
-
             const sql = 'CALL excluir_curso_por_id(?)'
 
             await db.query(sql, [id]);
@@ -38,26 +36,22 @@ const cursoModel = {
             return true;
 
         } catch (error) {
-            throw error
+            throw error;
         }
-
     },
 
-    consultarTodosRegistros: async (req, res) => {
-        //Método que verifica o email informado através da 'procedure'
+    consultarTodosRegistros: async () => {
+        // Método que retorna todos os cursos através da 'procedure'
         try {
-            const sql = 'CALL consultar_cursos()';
+            const sql = 'CALL consultar_cursos()';  // Aqui você chama a procedure que retorna todos os cursos
+            const [result] = await db.execute(sql);  // Execute a consulta
 
-            const [result] = await db.execute(sql);
-    
-            return result[0];
-
+            return result;  // Retorna todos os cursos como um array
         } catch (error) {
-        Console.error('Erro ao buscar cursos: ', error);
-        return error;
+            console.error('Erro ao buscar cursos: ', error);
+            throw error;  // Propaga o erro
         }
     }
-
 };
 
 module.exports = cursoModel;

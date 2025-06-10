@@ -20,7 +20,7 @@
         </div>
         <div class="links">
             <a href="inicio.html">Início</a>
-          </div>
+        </div>
         <div class="user-info">
             <svg viewBox="0 0 24 24">
                 <circle cx="12" cy="8" r="4" />
@@ -32,32 +32,57 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container">
         <h2>Cadastro de Cursos</h2>
+        <div id="message"></div>
+
         <div id="courses-container"></div>
+
         <button id="add-course-btn" class="btn">Adicionar Curso</button>
     </div>
 
     <script>
-
-    /*
-
-
-        NÃO SEI SE FUNCION, PRECISO DO BACKEND PRA TESTAR, PRÓXIMA AULA EU 
-        PERGUNTO SOBRE O BACK E TESTO DNV, SE NÃO FUNCIONAR EU N JA NÃO SEI 
-        O QUE FAÇO, A MINHA VIDA É UMA LUTA SEM FIM, ME SINTO NO ESPAÇO AWKJDWADNO
-
-
-    */ 
+        // Quando o botão de adicionar curso for clicado
         document.getElementById("add-course-btn").addEventListener("click", addCourse);
 
+        // Função para adicionar um curso
         async function addCourse() {
             const courseName = prompt("Digite o nome do curso:");
-            const courseDesc = prompt("Digite a descrição do curso:")
+            const courseDesc = prompt("Digite a descrição do curso:");
 
-            if (!courseName && !courseDesc) return;
+            // Verifica se o nome ou descrição estão vazios
+            if (!courseName || !courseDesc) return;
 
+            // Envia o curso para o backend
+            try {
+                const response = await fetch('/api/curso', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ nome: courseName, descricao: courseDesc })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    console.log('Curso criado com sucesso!');
+                    // Adiciona o curso à página
+                    createCourseElement(courseName, courseDesc);
+                    carregarCursos();  // Atualiza a lista de cursos
+                } else {
+                    console.log('Erro ao criar o curso:', data.error);
+                    alert('Erro ao criar o curso. Tente novamente.');
+                }
+            } catch (error) {
+                console.error('Erro ao enviar dados para o backend:', error);
+                alert('Erro ao conectar com o servidor. Tente novamente.');
+            }
+        }
+
+        // Função para criar um novo curso na interface
+        function createCourseElement(courseName, courseDesc) {
             const courseDiv = document.createElement("div");
             courseDiv.classList.add("curso-item");
 
@@ -65,11 +90,10 @@
             courseTitle.textContent = courseName;
             courseDiv.appendChild(courseTitle);
 
-            const courseTitleDesc = document.createElement("h5");
-            courseTitleDesc.textContent = courseDesc;
-            courseDiv.appendChild(courseTitleDesc);
+            const courseDescElement = document.createElement("h5");
+            courseDescElement.textContent = courseDesc;
+            courseDiv.appendChild(courseDescElement);
 
-            
             const addDisciplineButton = document.createElement("button");
             addDisciplineButton.textContent = "Adicionar Disciplina";
             addDisciplineButton.classList.add("btn-disciplina");
@@ -102,43 +126,16 @@
                 if (newCourseName) {
                     courseTitle.textContent = newCourseName;
                 }
-                const newDesc = prompt("Digite a nova Descrição:", courseTitleDesc.textContent);
+                const newDesc = prompt("Digite a nova descrição:", courseDescElement.textContent);
                 if (newDesc) {
-                    courseTitleDesc.textContent = newDesc;
+                    courseDescElement.textContent = newDesc;
                 }
             });
 
             document.getElementById("courses-container").appendChild(courseDiv);
-
-            const cursoNome = courseName.textContent;
-            const cursoDesc = courseDesc.textContent;
-
-            try {
-                const response = await fetch('/api/curso', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ cursoNome, cursoDesc })
-                });
-
-                const data = await response.json();
-
-                if (data.existe) {
-                    console.log('O curso já existe!');
-                }
-                else {
-                    console.log('Curso Criado com sucesso!')
-                }
-            }
-            catch (error) {
-                console.error('Erro ao criar o curso: ', error)
-                alert('Erro ao criar o curso')
-            }
-
-            
         }
 
+        // Função para adicionar disciplinas a um curso
         async function addDiscipline(disciplineList) {
             const disciplineName = prompt("Digite o nome da disciplina:");
             if (!disciplineName) return;
@@ -162,10 +159,6 @@
             cadastrarQuestoesButton.textContent = "Cadastrar Questões";
             cadastrarQuestoesButton.classList.add("btn-questao");
             cadastrarQuestoesButton.style.marginLeft = "10px";
-            cadastrarQuestoesButton.addEventListener("click", function () {
-                const nomeDisciplina = encodeURIComponent(disciplineTitle.textContent);
-                window.location.href = `cadastrarQuestoes.html?disciplina=${nomeDisciplina}`;
-            });
             disciplineDiv.appendChild(cadastrarQuestoesButton);
 
             const removeDisciplineButton = document.createElement("button");
@@ -186,24 +179,47 @@
 
             disciplineList.appendChild(disciplineDiv);
 
-            const disciplinaNome = disciplineName;
-
+            // Envia a disciplina para o backend
             try {
                 const response = await fetch('/api/curso', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ disciplinaNome })
+                    body: JSON.stringify({ disciplinaNome: disciplineName })
                 });
                 const data = await response.json();
 
+                console.log('Disciplina adicionada:', data);
             } catch (error) {
-                console.error('Erro ao Criar disciplina: ', error);
-                alert('Erro ao criar disciplina');
+                console.error('Erro ao adicionar disciplina:', error);
+                alert('Erro ao adicionar disciplina.');
             }
-
         }
+
+        // Função para carregar todos os cursos
+        async function carregarCursos() {
+            try {
+                const response = await fetch('/api/curso');
+                const data = await response.json();
+
+                if (data.data && data.data.length > 0) {
+                    const coursesContainer = document.getElementById("courses-container");
+                    coursesContainer.innerHTML = "";  // Limpa os cursos exibidos anteriormente
+
+                    data.data.forEach(course => {
+                        createCourseElement(course.nome, course.descricao);
+                    });
+                } else {
+                    document.getElementById("courses-container").innerHTML = "<p>Nenhum curso cadastrado.</p>";
+                }
+            } catch (error) {
+                console.error("Erro ao carregar cursos:", error);
+            }
+        }
+
+        // Chama a função para carregar cursos ao carregar a página
+        window.onload = carregarCursos;
     </script>
 </body>
 </html>

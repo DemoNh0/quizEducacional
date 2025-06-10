@@ -18,19 +18,23 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
-})
+});
 
 app.get('/cadastrarUsuario', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'registro.html'));
-})
+});
 
 app.get('/loginUsuario', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
-})
+});
 
 app.get('/esqueci', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'esqueci.html'));
-})
+});
+
+app.get('/cadastrarCurso', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'cadastrarCurso.html'));
+});
 
 // ROTAS BACK-END
 
@@ -45,10 +49,10 @@ app.put('/api/curso/:id', cursoController.edicaoRegistro);
 app.delete('/api/curso/:id', cursoController.excluirRegistro);
 
 // ROTAS PARA disciplinasController
-app.get('/api/disciplina/:id_curso', disciplinaController);
-app.post('/api/disciplina', disciplinaController);
-app.put('/api/disciplina/:id', disciplinaController);
-app.delete('/api/disciplinas/:id', disciplinaController);
+app.get('/api/disciplina/:id_curso', disciplinaController.consultaPorCurso);
+app.post('/api/disciplina', disciplinaController.novoRegistro);
+app.put('/api/disciplina/:id', disciplinaController.edicaoRegistro);
+app.delete('/api/disciplinas/:id', disciplinaController.excluirRegistro);
 
 // ROTAS PARA questaoController
 app.get('/api/questao/:id_disciplina', usuarioController.verificarToken, questaoController.consultarQuestao);
@@ -61,9 +65,6 @@ app.get('/api/alternativa/:id_questao', usuarioController.verificarToken, altern
 app.post('/api/alternativa', usuarioController.verificarToken, usuarioController.verificarAdmin, alternativaController.cadastrarAlternativa);
 app.put('/api/alternativa', usuarioController.verificarToken, usuarioController.verificarAdmin, alternativaController.editarAlternativa);
 app.delete('/api/alternativa/:id', usuarioController.verificarToken, usuarioController.verificarAdmin, alternativaController.excluirAlternativa);
-
-
-
 
 // Inicialização Servidor
 app.listen(PORT, ()=>{

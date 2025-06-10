@@ -96,9 +96,8 @@ const cursoController = {
 
             res.status(200).json({
                 message: 'Cursos encontrados com sucesso!',
-                data: cursos
+                data: cursos  // Aqui estamos retornando todos os cursos
             })
-            
         } catch (error) {
             console.error('Erro ao consultar registros: ', error);
             return res.status(500).json({
